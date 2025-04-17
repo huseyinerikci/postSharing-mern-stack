@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import useToken from "./hooks/useToken";
@@ -19,9 +19,12 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={!token?.token ? <Link to={"/auth"} /> : <Home />}
+            element={!token?.token ? <Navigate to="/auth" replace /> : <Home />}
           />
-          <Route path="/auth" element={<Auth />} />
+          <Route
+            path="/auth"
+            element={token?.token ? <Navigate to="/" replace /> : <Auth />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

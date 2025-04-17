@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loginAction, registerAction } from "../redux/actions/auth";
 import { useDispatch } from "../../node_modules/react-redux/src/hooks/useDispatch";
+import { toast } from "react-toastify";
 
 const Auth = () => {
   const [signUp, setSignUp] = useState(true);
@@ -17,8 +18,16 @@ const Auth = () => {
   const authFunc = () => {
     if (signUp) {
       dispatch(registerAction(authData));
+      toast("Registration completed successfully", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } else {
       dispatch(loginAction(authData));
+      toast("Login successful", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
   return (
@@ -59,19 +68,17 @@ const Auth = () => {
         <div className="text-red-500 text-xs mb-4 cursor-pointer">
           {signUp ? (
             <span onClick={() => setSignUp(false)}>
-              Daha önce giriş yaptınız mı?
+              Have you logged in before?
             </span>
           ) : (
-            <span onClick={() => setSignUp(true)}>
-              Kayıt olmak için tıklayınız
-            </span>
+            <span onClick={() => setSignUp(true)}>Click here to register </span>
           )}
         </div>
         <div
           onClick={authFunc}
           className="w-full p-2 text-center bg-indigo-600 text-white rounded-md hover:bg-indigo-500 cursor-pointer"
         >
-          {signUp ? "Kayıt Ol" : "Giriş Yap"}
+          {signUp ? "Register" : "Login"}
         </div>
       </div>
     </div>

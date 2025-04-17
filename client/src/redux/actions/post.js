@@ -5,7 +5,7 @@ export const getPostsAction = () => async (dispatch) => {
   try {
     const { data } = await axios.get("http://localhost:5000/getPosts");
 
-    dispatch({ type: "GET_POST", payload: data });
+    dispatch({ type: "GET_POSTS", payload: data });
   } catch (error) {
     const errMsg = error?.response?.data?.msg;
     toast(errMsg, {
@@ -22,6 +22,8 @@ export const createPostAction = (postData) => async (dispatch) => {
     );
 
     dispatch({ type: "CREATE_POST", payload: data });
+    // Yeni eklenen postlar hemen gelsin
+    dispatch(getPostsAction());
   } catch (error) {
     const errMsg = error?.response?.data?.msg;
     toast(errMsg, {

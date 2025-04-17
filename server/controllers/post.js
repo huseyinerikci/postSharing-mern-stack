@@ -29,8 +29,8 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-    await PostSchema.findByIdAndRemove(id);
-    res.status(200).json({ msg: "Silme işlemi başarılı" });
+    await PostSchema.findByIdAndDelete(id);
+    res.status(200).json({ msg: "Deletion successful" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
